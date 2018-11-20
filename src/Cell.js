@@ -10,7 +10,11 @@ class Cell extends Component {
     this.props.flagCell(this.props.row, this.props.col)
   }
   render() {
-    return <td onClick={this.checkCell} onContextMenu={this.flagCell} />
+    return (
+      <td onClick={this.checkCell} onContextMenu={this.flagCell}>
+        {this.props.value}
+      </td>
+    )
   }
 }
 
