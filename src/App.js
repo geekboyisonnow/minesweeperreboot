@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import axios from 'axios'
+import Cell from './Cell'
 
 class App extends Component {
   constructor(props) {
@@ -10,14 +11,14 @@ class App extends Component {
       game: {
         id: 1,
         board: [
-          [' ', '10', ' ', ' ', ' ', ' ', ' ', '9'],
           [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-          [' ', ' ', '*', ' ', '12', ' ', ' ', ' '],
-          ['00', ' ', ' ', ' ', ' ', ' ', '88', ' '],
           [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-          [' ', '13', ' ', ' ', ' ', ' ', ' ', ' '],
-          [' ', ' ', ' ', ' ', '8', ' ', ' ', ' '],
-          [' ', '11', ' ', ' ', ' ', ' ', ' ', ' ']
+          [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+          [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+          [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+          [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+          [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+          [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
         ],
         state: 'new',
         mines: 7
@@ -34,6 +35,44 @@ class App extends Component {
         game: response.data
       })
     })
+  }
+
+  // need id, row, col
+  checkCell = (row, col) => {
+    axios
+      .post(
+        `https://minesweeper-api.herokuapp.com/games/${
+          this.state.game.id
+        }/check`,
+        {
+          id: this.state.game.id,
+          row: row,
+          col: col
+        }
+      )
+      .then(response => {
+        this.setState({
+          game: response.data
+        })
+      })
+  }
+  flagCell = (row, col) => {
+    axios
+      .post(
+        `https://minesweeper-api.herokuapp.com/games/${
+          this.state.game.id
+        }/flag`,
+        {
+          id: this.state.game.id,
+          row: row,
+          col: col
+        }
+      )
+      .then(response => {
+        this.setState({
+          game: response.data
+        })
+      })
   }
 
   headerText = () => {
@@ -70,89 +109,472 @@ class App extends Component {
               </td>
             </tr>
             <tr>
-              <td className="header not-playing" colSpan="8">
-                {this.headerText()}
-              </td>
+              <td className="header not-playing" colSpan="8" />
+            </tr>
+
+            <tr>
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={0}
+                col={0}
+                value={this.state.game.board[0][0]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={0}
+                col={1}
+                value={this.state.game.board[0][1]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={0}
+                col={2}
+                value={this.state.game.board[0][2]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={0}
+                col={3}
+                value={this.state.game.board[0][3]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={0}
+                col={4}
+                value={this.state.game.board[0][4]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={0}
+                col={5}
+                value={this.state.game.board[0][5]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={0}
+                col={6}
+                value={this.state.game.board[0][6]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={0}
+                col={7}
+                value={this.state.game.board[0][7]}
+              />
             </tr>
             <tr>
-              <td>{this.state.game.board[0][0]}</td>
-              <td>{this.state.game.board[0][1]}</td>
-              <td>{this.state.game.board[0][2]}</td>
-              <td>{this.state.game.board[0][3]}</td>
-              <td>{this.state.game.board[0][4]}</td>
-              <td>{this.state.game.board[0][5]}</td>
-              <td>{this.state.game.board[0][6]}</td>
-              <td>{this.state.game.board[0][7]}</td>
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={1}
+                col={0}
+                value={this.state.game.board[1][0]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={1}
+                col={1}
+                value={this.state.game.board[1][1]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={1}
+                col={2}
+                value={this.state.game.board[1][2]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={1}
+                col={3}
+                value={this.state.game.board[1][3]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={1}
+                col={4}
+                value={this.state.game.board[1][4]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={1}
+                col={5}
+                value={this.state.game.board[1][5]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={1}
+                col={6}
+                value={this.state.game.board[1][6]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={1}
+                col={7}
+                value={this.state.game.board[1][7]}
+              />
             </tr>
             <tr>
-              <td>{this.state.game.board[1][0]}</td>
-              <td>{this.state.game.board[1][1]}</td>
-              <td>{this.state.game.board[1][2]}</td>
-              <td>{this.state.game.board[1][3]}</td>
-              <td>{this.state.game.board[1][4]}</td>
-              <td>{this.state.game.board[1][5]}</td>
-              <td>{this.state.game.board[1][6]}</td>
-              <td>{this.state.game.board[1][7]}</td>
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={2}
+                col={0}
+                value={this.state.game.board[2][0]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={2}
+                col={1}
+                value={this.state.game.board[2][1]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={2}
+                col={2}
+                value={this.state.game.board[2][2]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={2}
+                col={3}
+                value={this.state.game.board[2][3]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={2}
+                col={4}
+                value={this.state.game.board[2][4]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={2}
+                col={5}
+                value={this.state.game.board[2][5]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={2}
+                col={6}
+                value={this.state.game.board[2][6]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={2}
+                col={7}
+                value={this.state.game.board[2][7]}
+              />
             </tr>
             <tr>
-              <td>{this.state.game.board[2][0]}</td>
-              <td>{this.state.game.board[2][1]}</td>
-              <td>{this.state.game.board[2][2]}</td>
-              <td>{this.state.game.board[2][3]}</td>
-              <td>{this.state.game.board[2][4]}</td>
-              <td>{this.state.game.board[2][5]}</td>
-              <td>{this.state.game.board[2][6]}</td>
-              <td>{this.state.game.board[2][7]}</td>
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={3}
+                col={0}
+                value={this.state.game.board[3][0]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={3}
+                col={1}
+                value={this.state.game.board[3][1]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={3}
+                col={2}
+                value={this.state.game.board[3][2]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={3}
+                col={3}
+                value={this.state.game.board[3][3]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={3}
+                col={4}
+                value={this.state.game.board[3][4]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={3}
+                col={5}
+                value={this.state.game.board[3][5]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={3}
+                col={6}
+                value={this.state.game.board[3][6]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={3}
+                col={7}
+                value={this.state.game.board[3][7]}
+              />
             </tr>
             <tr>
-              <td>{this.state.game.board[3][0]}</td>
-              <td>{this.state.game.board[3][1]}</td>
-              <td>{this.state.game.board[3][2]}</td>
-              <td>{this.state.game.board[3][3]}</td>
-              <td>{this.state.game.board[3][4]}</td>
-              <td>{this.state.game.board[3][5]}</td>
-              <td>{this.state.game.board[3][6]}</td>
-              <td>{this.state.game.board[3][7]}</td>
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={4}
+                col={0}
+                value={this.state.game.board[4][0]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={4}
+                col={1}
+                value={this.state.game.board[4][1]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={4}
+                col={2}
+                value={this.state.game.board[4][2]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={4}
+                col={3}
+                value={this.state.game.board[4][3]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={4}
+                col={4}
+                value={this.state.game.board[4][4]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={4}
+                col={5}
+                value={this.state.game.board[4][5]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={4}
+                col={6}
+                value={this.state.game.board[4][6]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={4}
+                col={7}
+                value={this.state.game.board[4][7]}
+              />
             </tr>
             <tr>
-              <td>{this.state.game.board[4][0]}</td>
-              <td>{this.state.game.board[4][1]}</td>
-              <td>{this.state.game.board[4][2]}</td>
-              <td>{this.state.game.board[4][3]}</td>
-              <td>{this.state.game.board[4][4]}</td>
-              <td>{this.state.game.board[4][5]}</td>
-              <td>{this.state.game.board[4][6]}</td>
-              <td>{this.state.game.board[4][7]}</td>
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={5}
+                col={0}
+                value={this.state.game.board[5][0]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={5}
+                col={1}
+                value={this.state.game.board[5][1]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={5}
+                col={2}
+                value={this.state.game.board[5][2]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={5}
+                col={3}
+                value={this.state.game.board[5][3]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={5}
+                col={4}
+                value={this.state.game.board[5][4]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={5}
+                col={5}
+                value={this.state.game.board[5][5]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={5}
+                col={6}
+                value={this.state.game.board[5][6]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={5}
+                col={7}
+                value={this.state.game.board[5][7]}
+              />
             </tr>
             <tr>
-              <td>{this.state.game.board[5][0]}</td>
-              <td>{this.state.game.board[5][1]}</td>
-              <td>{this.state.game.board[5][2]}</td>
-              <td>{this.state.game.board[5][3]}</td>
-              <td>{this.state.game.board[5][4]}</td>
-              <td>{this.state.game.board[5][5]}</td>
-              <td>{this.state.game.board[5][6]}</td>
-              <td>{this.state.game.board[5][7]}</td>
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={6}
+                col={0}
+                value={this.state.game.board[6][0]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={6}
+                col={1}
+                value={this.state.game.board[6][1]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={6}
+                col={2}
+                value={this.state.game.board[6][2]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={6}
+                col={3}
+                value={this.state.game.board[6][3]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={6}
+                col={4}
+                value={this.state.game.board[6][4]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={6}
+                col={5}
+                value={this.state.game.board[6][5]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={6}
+                col={6}
+                value={this.state.game.board[6][6]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={6}
+                col={7}
+                value={this.state.game.board[6][7]}
+              />
             </tr>
             <tr>
-              <td>{this.state.game.board[6][0]}</td>
-              <td>{this.state.game.board[6][1]}</td>
-              <td>{this.state.game.board[6][2]}</td>
-              <td>{this.state.game.board[6][3]}</td>
-              <td>{this.state.game.board[6][4]}</td>
-              <td>{this.state.game.board[6][5]}</td>
-              <td>{this.state.game.board[6][6]}</td>
-              <td>{this.state.game.board[6][7]}</td>
-            </tr>
-            <tr>
-              <td>{this.state.game.board[7][0]}</td>
-              <td>{this.state.game.board[7][1]}</td>
-              <td>{this.state.game.board[7][2]}</td>
-              <td>{this.state.game.board[7][3]}</td>
-              <td>{this.state.game.board[7][4]}</td>
-              <td>{this.state.game.board[7][5]}</td>
-              <td>{this.state.game.board[7][6]}</td>
-              <td>{this.state.game.board[7][7]}</td>
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={7}
+                col={0}
+                value={this.state.game.board[7][0]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={7}
+                col={1}
+                value={this.state.game.board[7][1]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={7}
+                col={2}
+                value={this.state.game.board[7][2]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={7}
+                col={3}
+                value={this.state.game.board[7][3]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={7}
+                col={4}
+                value={this.state.game.board[7][4]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={7}
+                col={5}
+                value={this.state.game.board[7][5]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={7}
+                col={6}
+                value={this.state.game.board[7][6]}
+              />
+              <Cell
+                checkCell={this.checkCell}
+                flagCell={this.flagCell}
+                row={7}
+                col={7}
+                value={this.state.game.board[7][7]}
+              />
             </tr>
             <tr>
               <td className="header" colSpan="8">
